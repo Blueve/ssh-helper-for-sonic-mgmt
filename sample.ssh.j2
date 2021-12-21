@@ -1,0 +1,13 @@
+{# Modifiy below parameter to determin if use hopbox or not #}
+{# Replace `null` with your hopbox host #}
+{% set hopbox = null %}
+
+{% set ptfs = {} %}
+{% for session in sessions %}
+Host {% if session['type'] == 'ptf' %}{% set number = ((ptfs[session['testbed']] + 1) if session['testbed'] in ptfs else 1) %}ptf_{{ session['testbed'] }}_{{ number }}{% do ptfs.update({ session['testbed'] : number }) %}{% else %}{{ session['session_name'] }}{% endif %}
+    HostName {{ session['host_name'] }}
+    User {{ session['username'] }}
+    Port {{ session['port'] }}
+    StrictHostKeyChecking no
+    {% if hopbox %}ProxyJump {{ hopbox }}{% endif %}
+{% endfor %}
