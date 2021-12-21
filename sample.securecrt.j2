@@ -1,0 +1,3 @@
+folder,session_name,hostname,protocol,port,username
+{% for session in sessions %}{{ session['folder'] }},{{ session['session_name'] }},{{ session['host_name'] }},{{ session['protocol'] }},{{ session['port'] }},{{ session['username'] }}
+{% endfor %}
